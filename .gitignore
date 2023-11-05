@@ -23,3 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 *.tmp
+ JetBrainsMono-2.304
+*.docx

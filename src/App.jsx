@@ -2,7 +2,12 @@ import './App.css';
 import React from 'react';
 
 function App() {
-  return <div>Start project</div>;
+  return (
+    <>
+      <h1>React Fragment</h1>
+      <p>Lorem, ipsum.</p>
+    </>
+  );
   // return React.createElement('div', {}, 'Проект');
 }
 
