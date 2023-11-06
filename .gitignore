@@ -25,3 +25,4 @@ dist-ssr
 *.tmp
  JetBrainsMono-2.304
 *.docx
+.vite/
