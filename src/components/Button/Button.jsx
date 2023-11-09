@@ -1,5 +1,7 @@
+import './Button.css';
+
 function Button() {
-  return <button>Button</button>;
+  return <button className="btn btn-blue">Button</button>;
 }
 
 export default Button;
