@@ -19,7 +19,7 @@ module.exports = {
     semi: ['error', 'always', { omitLastInOneLineBlock: false }], // Чтобы в конце были обязательно ;
     'comma-dangle': ['error', 'never'], // не должно быть высящих запятых
     quotes: ['error', 'single'], // привод к одинарным кавычкам
-    'react/prop-types': [0],
+    'react/prop-types': [0], // выключили проверку props
     indent: ['error', 'tab'],
   },
 };

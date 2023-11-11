@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import Button from './components/Button/Button';
 import JournalItem from './components/Button/JournalItem/JournalItem';
+import CardButton from './components/CardButton/CardButton';
 
 function App() {
   const data = [
@@ -25,12 +26,14 @@ function App() {
   return (
     <>
       <Button />
+      <CardButton>Новое воспоминание</CardButton>
       {data.map((item, index) => (
-        <JournalItem key={index} {...item} />
+        <CardButton>
+          <JournalItem key={index} {...item} />
+        </CardButton>
       ))}
     </>
   );
-  // return React.createElement('div', {}, 'Проект');
 }
 
 export default App;
