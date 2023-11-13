@@ -1,5 +1,4 @@
 import './App.css';
-import React from 'react';
 import Button from './components/Button/Button';
 import JournalItem from './components/Button/JournalItem/JournalItem';
 import CardButton from './components/CardButton/CardButton';
@@ -28,7 +27,7 @@ function App() {
       <Button />
       <CardButton>Новое воспоминание</CardButton>
       {data.map((item, index) => (
-        <CardButton>
+        <CardButton key={index}>
           <JournalItem key={index} {...item} />
         </CardButton>
       ))}
