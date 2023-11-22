@@ -4,6 +4,11 @@ import './JournalForm.css';
 
 function JournalForm() {
   const [inputData, setInputData] = useState('');
+  const [state, setState] = useState({
+    age: 31,
+  });
+
+  const [state2, setState2] = useState([1, 2, 3]);
 
   const inputChange = (event) => {
     setInputData(event.target.value);
@@ -13,6 +18,11 @@ function JournalForm() {
   const addJournalItem = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
+    state.age = 40;
+    //state2.push(4);
+    setState({ ...state }); // применяем spread оператор, тем самы создавая новый объект
+    //setState2([...state2]);
+    // console.log(state.age);
     // console.log(...formData);
     // for (let [name, value] of formData) {
     //   console.log('name', name);
@@ -24,6 +34,9 @@ function JournalForm() {
 
   return (
     <form className="journal-form" onSubmit={addJournalItem}>
+      {state.age}
+      <br />
+      {/* {state2.length} */}
       <input type="text" name="title" />
       <input type="date" name="date" />
       <input type="text" name="tag" />
