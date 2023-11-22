@@ -2,9 +2,9 @@ import './App.css';
 import Header from './components/Header/Header';
 import JournalAddButton from './components/JournalAddButton/JournalAddButton';
 import JournalList from './components/JournalList/JournalList';
-import Button from './components/Button/Button';
 import JournalItem from './components/Button/JournalItem/JournalItem';
 import CardButton from './components/CardButton/CardButton';
+import JournalForm from './components/JournalForm/JournalForm';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import Body from './layouts/Body/Body';
 
@@ -41,8 +41,7 @@ function App() {
         </JournalList>
       </LeftPanel>
       <Body>
-        {' '}
-        <Button />
+        <JournalForm />
       </Body>
     </div>
   );
