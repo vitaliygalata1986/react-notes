@@ -2,8 +2,6 @@ import './App.css';
 import Header from './components/Header/Header';
 import JournalAddButton from './components/JournalAddButton/JournalAddButton';
 import JournalList from './components/JournalList/JournalList';
-import JournalItem from './components/Button/JournalItem/JournalItem';
-import CardButton from './components/CardButton/CardButton';
 import JournalForm from './components/JournalForm/JournalForm';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import Body from './layouts/Body/Body';
@@ -39,30 +37,13 @@ function App() {
       },
     ]);
   };
-  //const sortItems = (a, b) => b.date - a.date;
-  const sortItems = (a, b) => {
-    if (a.date < b.date) {
-      return 1;
-    } else {
-      return -1;
-    }
-  };
 
-  //console.log(items.sort());
   return (
     <div className="app">
       <LeftPanel>
         <Header />
         <JournalAddButton />
-        {items.length > 0 && (
-          <JournalList>
-            {items.sort(sortItems).map((item) => (
-              <CardButton key={item.id}>
-                <JournalItem {...item} />
-              </CardButton>
-            ))}
-          </JournalList>
-        )}
+        <JournalList items={items} />
       </LeftPanel>
       <Body>
         <JournalForm onSubmit={addItem} />
