@@ -33,7 +33,8 @@ function App() {
         //  date: new Date('2023-11-16'), - в таком формате получаем из формы
         // тогда в итоге имеем Thu Nov 16 2023 02:00:00 GMT+0200 (Eastern European Standard Time)
         date: new Date(item.date),
-        id: Math.max(...oldItems.map((i) => i.id)) + 1, // находим самый большое значение id и добавляем к нему 1
+        id:
+          oldItems.length > 0 ? Math.max(...oldItems.map((i) => i.id)) + 1 : 1, // находим самый большое значение id и добавляем к нему 1
       },
     ]);
   };
