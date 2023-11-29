@@ -44,17 +44,17 @@ function JournalForm({ onSubmit }) {
       <input
         type="text"
         name="title"
-        className={`input ${formValidState.title ? '' : 'invalid'}`}
+        style={{ border: formValidState.title ? undefined : '1px solid red' }}
       />
       <input
         type="date"
         name="date"
-        className={`input ${formValidState.date ? '' : 'invalid'}`}
+        style={{ border: formValidState.date ? undefined : '1px solid red' }}
       />
       <input type="text" name="tag" />
       <textarea
         name="text"
-        className={`input ${formValidState.text ? '' : 'invalid'}`}
+        style={{ border: formValidState.text ? undefined : '1px solid red' }}
       ></textarea>
       <Button text="Сохранить"></Button>
     </form>
