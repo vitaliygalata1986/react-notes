@@ -1,4 +1,5 @@
 .body {
   flex-grow: 1;
   padding: 50px;
+  width: 100%;
 }
