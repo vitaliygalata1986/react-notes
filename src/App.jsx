@@ -21,17 +21,24 @@ function App() {
     }
   }, []); // пустой массив - означает, что эта функция только один раз отработает
 
+  useEffect(() => {
+    if (items.length) {
+      localStorage.setItem('data', JSON.stringify(items));
+    }
+    //console.log(items);
+  }, [items]); // каждый раз когда будет меняться items, мы в консоль будем выводить данные
+
   const addItem = (item) => {
     setItems((oldItems) => [
       ...oldItems,
       {
+        id:
+          oldItems.length > 0 ? Math.max(...oldItems.map((i) => i.id)) + 1 : 1, // находим самый большое значение id и добавляем к нему 1
         title: item.title,
-        text: item.text,
         //  date: new Date('2023-11-16'), - в таком формате получаем из формы
         // тогда в итоге имеем Thu Nov 16 2023 02:00:00 GMT+0200 (Eastern European Standard Time)
         date: new Date(item.date),
-        id:
-          oldItems.length > 0 ? Math.max(...oldItems.map((i) => i.id)) + 1 : 1, // находим самый большое значение id и добавляем к нему 1
+        text: item.text,
       },
     ]);
   };
