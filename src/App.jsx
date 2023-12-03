@@ -6,24 +6,21 @@ import JournalForm from './components/JournalForm/JournalForm';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import Body from './layouts/Body/Body';
 import { useState } from 'react';
-
-const INITIAL_DATA = [
-  {
-    id: 1,
-    title: 'Подготовка к обновлению курсов',
-    date: new Date(),
-    text: 'Горные походы открывают удивительные природные ландшафты, испытывают туристов физически и морально, дают возможность почувствовать себя первопроходцем',
-  },
-  {
-    id: 2,
-    title: 'Подготовка к обновлению курсов',
-    date: new Date(),
-    text: 'Горные походы открывают удивительные природные ландшафты, испытывают туристов физически и морально, дают возможность почувствовать себя первопроходцем',
-  },
-];
+import { useEffect } from 'react';
 
 function App() {
-  const [items, setItems] = useState(INITIAL_DATA);
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('data'));
+    if (data) {
+      const dataNew = data.map((item) => ({
+        ...item,
+        date: new Date(item.date), // нам нужно преобразовать в такой вид: Fri Mar 03 2023 00:00:00 GMT+0200 (Eastern European Standard Time)
+      }));
+      setItems(dataNew);
+    }
+  }, []); // пустой массив - означает, что эта функция только один раз отработает
+
   const addItem = (item) => {
     setItems((oldItems) => [
       ...oldItems,
