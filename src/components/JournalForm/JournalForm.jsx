@@ -1,14 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '../Button/Button';
 import styles from './JournalForm.module.css';
 import cn from 'classnames';
 
+const INITIAL_STATE = {
+  title: true,
+  text: true,
+  date: true,
+};
+
 function JournalForm({ onSubmit }) {
-  const [formValidState, setFormValidState] = useState({
-    title: true,
-    text: true,
-    date: true,
-  });
+  const [formValidState, setFormValidState] = useState(INITIAL_STATE);
+
+  useEffect(() => {
+    let timerId;
+    if (!formValidState.title || !formValidState.text || !formValidState.date) {
+      timerId = setTimeout(() => {
+        setFormValidState(INITIAL_STATE);
+      }, 2000);
+    }
+    // очищаем наш єффект
+    // возвращаем из нашего эффекта новую функцию
+    // когда наш компонент исчезает из нашего рендера (мы перешлли на другую страницу)
+    // или когда происходит снова использование этого эффекта с измененным состоянием
+    // таким образом не будут єффекты накладываться друг на друга - не будет мерцания
+    // новые интервалы накапливаются не будут
+    // в основном нуно чистить эффект, когда работаем с таймерами
+  }, [formValidState]);
+
   const addJournalItem = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);

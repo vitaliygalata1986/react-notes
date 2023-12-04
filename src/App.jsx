@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 
 function App() {
   const [items, setItems] = useState([]);
+
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('data'));
     if (data) {
