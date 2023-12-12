@@ -16,6 +16,7 @@ function JournalForm({ onSubmit }) {
     let timerId;
     if (!formValidState.title || !formValidState.text || !formValidState.date) {
       timerId = setTimeout(() => {
+        // console.log('Очистка эффекта');
         setFormValidState(INITIAL_STATE);
       }, 2000);
     }
@@ -26,6 +27,9 @@ function JournalForm({ onSubmit }) {
     // таким образом не будут єффекты накладываться друг на друга - не будет мерцания
     // новые интервалы накапливаются не будут
     // в основном нуно чистить эффект, когда работаем с таймерами
+    return () => {
+      clearInterval(timerId);
+    };
   }, [formValidState]);
 
   const addJournalItem = (event) => {
