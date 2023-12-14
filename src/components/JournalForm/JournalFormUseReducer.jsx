@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Button from '../Button/Button';
 import styles from './JournalForm.module.css';
 import cn from 'classnames';
-import { useReducer } from 'react';
+import { useReducer, useRef } from 'react';
 import { formReducer, INITIAL_STATE } from './JournalForm.state';
 
 function JournalForm({ onSubmit }) {
@@ -10,10 +10,28 @@ function JournalForm({ onSubmit }) {
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   // деструктурируем наш стейт на мелкие элементы
   const { isValid, isFormReadyToSubmit, values } = formState;
+  const titleRef = useRef(); // создали референс элемент с которым будем взаимод.
+  const dateRef = useRef(); // создали референс элемент с которым будем взаимод.
+  const textRef = useRef(); // создали референс элемент с которым будем взаимод.
+
+  const focusError = (isValid) => {
+    switch (true) {
+      case !isValid.title:
+        titleRef.current.focus();
+        break;
+      case !isValid.date:
+        dateRef.current.focus();
+        break;
+      case !isValid.text:
+        textRef.current.focus();
+        break;
+    }
+  };
 
   useEffect(() => {
     let timerId;
     if (!isValid.title || !isValid.text || !isValid.date) {
+      focusError(isValid); // передаем изначальное состояние валидности
       timerId = setTimeout(() => {
         dispatchForm({ type: 'RESET_VALIDITY' }); // отправляем событие, что нам нужно выполнить action RESET_VALIDITY
       }, 2000);
@@ -47,6 +65,7 @@ function JournalForm({ onSubmit }) {
         <input
           type="text"
           name="title"
+          ref={titleRef}
           value={values.title}
           onChange={onChange}
           className={cn(styles['input-title'], {
@@ -62,6 +81,7 @@ function JournalForm({ onSubmit }) {
         <input
           type="date"
           name="date"
+          ref={dateRef}
           value={values.date}
           onChange={onChange}
           id="date"
@@ -92,6 +112,7 @@ function JournalForm({ onSubmit }) {
         onChange={onChange}
         cols="30"
         rows="10"
+        ref={textRef}
         className={cn(styles['input'], {
           [styles['invalid']]: !isValid.text,
         })}
