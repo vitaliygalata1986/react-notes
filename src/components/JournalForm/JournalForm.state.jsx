@@ -7,9 +7,10 @@ export const INITIAL_STATE = {
   },
   values: {
     // тоесть если значения не заданы - форма валидна
-    title: undefined,
-    text: undefined,
-    date: undefined,
+    title: '',
+    text: '',
+    date: '',
+    tag: '',
   },
   // готова ли форма к сабмиту
   isFormReadyToSubmit: false,
@@ -22,20 +23,38 @@ export function formReducer(state, action) {
   switch (
     action.type // будем проверять тип
   ) {
-    case 'RESET_VALIDITY':
-      return { ...state, isValid: INITIAL_STATE.isValid };
-    case 'SUBMIT': {
-      const titleValidity = action.payload.title?.trim().length;
-      const textValidity = action.payload.text?.trim().length;
-      const dateValidity = action.payload.date?.trim().length;
+    case 'CLEAR_FORM':
       return {
-        values: action.payload,
+        ...state,
+        values: INITIAL_STATE.values,
+        isFormReadyToSubmit: false,
+      };
+    case 'RESET_VALIDITY':
+      return {
+        ...state,
+        isValid: INITIAL_STATE.isValid,
+      };
+    case 'SUBMIT': {
+      const titleValidity = state.values.title?.trim().length;
+      const textValidity = state.values.text?.trim().length;
+      const dateValidity = state.values.date;
+      return {
+        ...state,
         isValid: {
           title: titleValidity,
           text: textValidity,
           date: dateValidity,
         },
         isFormReadyToSubmit: titleValidity && textValidity && dateValidity,
+      };
+    }
+    case 'SET_VALUE': {
+      return {
+        ...state,
+        values: {
+          ...state.values, // мы ведь не можем все сразу инпуты обработать, поэтому возращаем предыдущий стейт
+          ...action.payload, // дополним одним инпутом, который нам пришел
+        },
       };
     }
   }
