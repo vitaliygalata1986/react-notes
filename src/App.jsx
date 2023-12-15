@@ -5,12 +5,24 @@ import JournalList from './components/JournalList/JournalList';
 import JournalForm from './components/JournalForm/JournalFormUseReducer';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import Body from './layouts/Body/Body';
-import { useState } from 'react';
-import { useEffect } from 'react';
+//import { useState, useEffect } from 'react';
+import { useLocalStorage } from './hooks/use-localstorage.hooks';
+
+function mapItems(items) {
+  if (!items) {
+    return [];
+  }
+  return items.map((item) => ({
+    ...item,
+    date: new Date(item.date),
+  }));
+}
 
 function App() {
-  const [items, setItems] = useState([]);
+  // const [items, setItems] = useState([]);
+  const [items, setItems] = useLocalStorage('data');
 
+  /*
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('data'));
     if (data) {
@@ -21,14 +33,18 @@ function App() {
       setItems(dataNew);
     }
   }, []); // пустой массив - означает, что эта функция только один раз отработает
+  */
 
+  /*
   useEffect(() => {
     if (items.length) {
       localStorage.setItem('data', JSON.stringify(items));
     }
     //console.log(items);
   }, [items]); // каждый раз когда будет меняться items, мы в консоль будем выводить данные
+  */
 
+  /*
   const addItem = (item) => {
     setItems((oldItems) => [
       ...oldItems,
@@ -43,13 +59,27 @@ function App() {
       },
     ]);
   };
+  */
+
+  const addItem = (item) => {
+    setItems([
+      ...mapItems(items),
+      {
+        title: item.title,
+        date: new Date(item.date),
+        id: items.length > 0 ? Math.max(...items.map((i) => i.id)) + 1 : 1,
+        text: item.text,
+      },
+    ]);
+  };
 
   return (
     <div className="app">
       <LeftPanel>
         <Header />
         <JournalAddButton />
-        <JournalList items={items} />
+        {/* <JournalList items={items} /> */}
+        <JournalList items={mapItems(items)} />
       </LeftPanel>
       <Body>
         <JournalForm onSubmit={addItem} />

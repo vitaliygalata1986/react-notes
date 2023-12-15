@@ -6,7 +6,6 @@ const Input = forwardRef(function Input(
   { className, isValid = false, appearence, ...props },
   ref
 ) {
-  console.log(isValid);
   return (
     <input
       ref={ref}
