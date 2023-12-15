@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import Button from '../Button/Button';
+import Input from '../Input/Input';
 import styles from './JournalForm.module.css';
 import cn from 'classnames';
 import { useReducer, useRef } from 'react';
@@ -61,51 +62,43 @@ function JournalForm({ onSubmit }) {
 
   return (
     <form className={styles['journal-form']} onSubmit={addJournalItem}>
-      <div>
-        <input
-          type="text"
-          name="title"
-          ref={titleRef}
-          value={values.title}
-          onChange={onChange}
-          className={cn(styles['input-title'], {
-            [styles['invalid']]: !isValid.title,
-          })}
-        />
-      </div>
+      <Input
+        name="title"
+        type="text"
+        ref={titleRef}
+        value={values.title}
+        isValid={!isValid.title}
+        onChange={onChange}
+        appearence="title"
+      />
       <div className={styles['form-row']}>
         <label htmlFor="date" className={styles['form-lable']}>
           <img src="/calendar.svg" alt="Иконка календаря" />
           <span>Дата</span>
         </label>
-        <input
+        <Input
           type="date"
           name="date"
           ref={dateRef}
           value={values.date}
+          isValid={!isValid.date}
           onChange={onChange}
           id="date"
-          className={cn(styles['input'], {
-            [styles['invalid']]: !isValid.date,
-          })}
         />
       </div>
-
       <div className={styles['form-row']}>
         <label htmlFor="tag" className={styles['form-lable']}>
           <img src="/folder.svg" alt="Иконка метки" />
           <span>Метки</span>
         </label>
-        <input
-          id="tag"
-          className={`${styles['input']}`}
+        <Input
           type="text"
-          name="tag"
-          value={values.tag}
           onChange={onChange}
+          id="tag"
+          value={values.tag}
+          name="tag"
         />
       </div>
-
       <textarea
         name="text"
         value={values.text}

@@ -3,11 +3,6 @@
   flex-direction: column;
 }
 
-.input-title {
-  margin-bottom: 15px;
-}
-
-.input-title,
 .input {
   border: none;
   background: none;
@@ -19,9 +14,6 @@
   line-height: normal;
   padding: 5px;
   width: 100%;
-}
-
-.input {
   font-size: 14px;
 }
 
