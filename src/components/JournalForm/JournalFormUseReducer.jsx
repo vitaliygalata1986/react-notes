@@ -3,7 +3,8 @@ import Button from '../Button/Button';
 import Input from '../Input/Input';
 import styles from './JournalForm.module.css';
 import cn from 'classnames';
-import { useReducer, useRef } from 'react';
+import { useReducer, useRef, useContext } from 'react';
+//import { useReducer, useRef } from 'react';
 import { formReducer, INITIAL_STATE } from './JournalForm.state';
 import { UserContext } from '../../context/user.context';
 
@@ -15,7 +16,7 @@ function JournalForm({ onSubmit }) {
   const titleRef = useRef(); // создали референс элемент с которым будем взаимод.
   const dateRef = useRef(); // создали референс элемент с которым будем взаимод.
   const textRef = useRef(); // создали референс элемент с которым будем взаимод.
-
+  const { userId } = useContext(UserContext); // получаем контекст из UserContext
   const focusError = (isValid) => {
     switch (true) {
       case !isValid.title:
@@ -62,63 +63,68 @@ function JournalForm({ onSubmit }) {
   };
 
   return (
-    <UserContext.Consumer>
-      {(context) => (
-        <form className={styles['journal-form']} onSubmit={addJournalItem}>
-          {context.userId}
-          <Input
-            name="title"
-            type="text"
-            ref={titleRef}
-            value={values.title}
-            isValid={!isValid.title}
-            onChange={onChange}
-            appearence="title"
-          />
-          <div className={styles['form-row']}>
-            <label htmlFor="date" className={styles['form-lable']}>
-              <img src="/calendar.svg" alt="Иконка календаря" />
-              <span>Дата</span>
-            </label>
-            <Input
-              type="date"
-              name="date"
-              ref={dateRef}
-              value={values.date}
-              isValid={!isValid.date}
-              onChange={onChange}
-              id="date"
-            />
-          </div>
-          <div className={styles['form-row']}>
-            <label htmlFor="tag" className={styles['form-lable']}>
-              <img src="/folder.svg" alt="Иконка метки" />
-              <span>Метки</span>
-            </label>
-            <Input
-              type="text"
-              onChange={onChange}
-              id="tag"
-              value={values.tag}
-              name="tag"
-            />
-          </div>
-          <textarea
-            name="text"
-            value={values.text}
-            onChange={onChange}
-            cols="30"
-            rows="10"
-            ref={textRef}
-            className={cn(styles['input'], {
-              [styles['invalid']]: !isValid.text,
-            })}
-          ></textarea>
-          <Button text="Сохранить"></Button>
-        </form>
-      )}
-    </UserContext.Consumer>
+    /*
+      <UserContext.Consumer>
+        {(context) => (
+    */
+    <form className={styles['journal-form']} onSubmit={addJournalItem}>
+      {userId}
+      <Input
+        name="title"
+        type="text"
+        ref={titleRef}
+        value={values.title}
+        isValid={!isValid.title}
+        onChange={onChange}
+        appearence="title"
+      />
+      <div className={styles['form-row']}>
+        <label htmlFor="date" className={styles['form-lable']}>
+          <img src="/calendar.svg" alt="Иконка календаря" />
+          <span>Дата</span>
+        </label>
+        <Input
+          type="date"
+          name="date"
+          ref={dateRef}
+          value={values.date}
+          isValid={!isValid.date}
+          onChange={onChange}
+          id="date"
+        />
+      </div>
+      <div className={styles['form-row']}>
+        <label htmlFor="tag" className={styles['form-lable']}>
+          <img src="/folder.svg" alt="Иконка метки" />
+          <span>Метки</span>
+        </label>
+        <Input
+          type="text"
+          onChange={onChange}
+          id="tag"
+          value={values.tag}
+          name="tag"
+        />
+      </div>
+      <textarea
+        name="text"
+        value={values.text}
+        onChange={onChange}
+        cols="30"
+        rows="10"
+        ref={textRef}
+        className={cn(styles['input'], {
+          [styles['invalid']]: !isValid.text,
+        })}
+      ></textarea>
+      <Button text="Сохранить"></Button>
+    </form>
   );
 }
+/*
+  </UserContext.Consumer>
+  );
+}
+*/
 
 export default JournalForm;

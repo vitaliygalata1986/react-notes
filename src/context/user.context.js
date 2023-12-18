@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
 export const UserContext = createContext({
-  userId: 1,
+  userId: 10,
 });
 
 // UserContext содержит 2 react объекта: Provider,Consumer
