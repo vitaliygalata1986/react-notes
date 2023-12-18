@@ -7,6 +7,7 @@ import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import Body from './layouts/Body/Body';
 //import { useState, useEffect } from 'react';
 import { useLocalStorage } from './hooks/use-localstorage.hooks';
+import { UserContext } from './context/user.context';
 
 function mapItems(items) {
   if (!items) {
@@ -74,17 +75,19 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <LeftPanel>
-        <Header />
-        <JournalAddButton />
-        {/* <JournalList items={items} /> */}
-        <JournalList items={mapItems(items)} />
-      </LeftPanel>
-      <Body>
-        <JournalForm onSubmit={addItem} />
-      </Body>
-    </div>
+    <UserContext.Provider value={{ userId: 1 }}>
+      <div className="app">
+        <LeftPanel>
+          <Header />
+          <JournalAddButton />
+          {/* <JournalList items={items} /> */}
+          <JournalList items={mapItems(items)} />
+        </LeftPanel>
+        <Body>
+          <JournalForm onSubmit={addItem} />
+        </Body>
+      </div>
+    </UserContext.Provider>
   );
 }
 
