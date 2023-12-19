@@ -64,13 +64,16 @@ function App() {
   */
 
   const addItem = (item) => {
+    // console.log(item); // {title: 'asxasxas', text: 'asxasxasx', date: '2023-12-21', userId: 1, tag: 'asx'}
     setItems([
       ...mapItems(items),
       {
-        title: item.title,
+        ...item,
+        // title: item.title,
+        // text: item.text,
+        // tag: item.tag,
         date: new Date(item.date),
         id: items.length > 0 ? Math.max(...items.map((i) => i.id)) + 1 : 1,
-        text: item.text,
       },
     ]);
   };

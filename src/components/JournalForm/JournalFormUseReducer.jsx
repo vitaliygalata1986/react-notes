@@ -3,12 +3,13 @@ import Button from '../Button/Button';
 import Input from '../Input/Input';
 import styles from './JournalForm.module.css';
 import cn from 'classnames';
-import { useReducer, useRef, useContext } from 'react';
-//import { useReducer, useRef } from 'react';
+import { useReducer, useRef } from 'react';
 import { formReducer, INITIAL_STATE } from './JournalForm.state';
 import { UserContext } from '../../context/user.context';
+import { useContext } from 'react';
 
 function JournalForm({ onSubmit }) {
+  const { userId } = useContext(UserContext);
   // dispatchForm - функция, которая вызывает нашу функцию обработчик
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   // деструктурируем наш стейт на мелкие элементы
@@ -16,7 +17,6 @@ function JournalForm({ onSubmit }) {
   const titleRef = useRef(); // создали референс элемент с которым будем взаимод.
   const dateRef = useRef(); // создали референс элемент с которым будем взаимод.
   const textRef = useRef(); // создали референс элемент с которым будем взаимод.
-  const { userId } = useContext(UserContext); // получаем контекст из UserContext
   const focusError = (isValid) => {
     switch (true) {
       case !isValid.title:
@@ -48,6 +48,16 @@ function JournalForm({ onSubmit }) {
     }
   }, [isFormReadyToSubmit, onSubmit, values]);
 
+  useEffect(() => {
+    // при изменении userId мы дополним нашу форму
+    dispatchForm({
+      type: 'SET_VALUE',
+      payload: {
+        userId,
+      },
+    });
+  }, [userId]);
+
   const onChange = (e) => {
     dispatchForm({
       type: 'SET_VALUE',
@@ -68,7 +78,6 @@ function JournalForm({ onSubmit }) {
         {(context) => (
     */
     <form className={styles['journal-form']} onSubmit={addJournalItem}>
-      {userId}
       <Input
         name="title"
         type="text"
@@ -102,8 +111,8 @@ function JournalForm({ onSubmit }) {
           type="text"
           onChange={onChange}
           id="tag"
-          value={values.tag}
           name="tag"
+          value={values.tag}
         />
       </div>
       <textarea

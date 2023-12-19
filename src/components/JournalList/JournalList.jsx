@@ -1,8 +1,12 @@
 import JournalItem from '../JournalItem/JournalItem';
 import CardButton from '../CardButton/CardButton';
+import { UserContext } from '../../context/user.context';
+import { useContext } from 'react';
+
 import './JournalList.css';
 
 function JournalList({ items }) {
+  const { userId } = useContext(UserContext);
   if (items.length === 0) {
     return <p>Записей пока нет, добавьте первую</p>;
   }
@@ -18,11 +22,14 @@ function JournalList({ items }) {
 
   return (
     <div className="journal-list">
-      {items.sort(sortItems).map((item) => (
-        <CardButton key={item.id}>
-          <JournalItem {...item} />
-        </CardButton>
-      ))}
+      {items
+        .filter((item) => item.userId === userId)
+        .sort(sortItems)
+        .map((item) => (
+          <CardButton key={item.id}>
+            <JournalItem {...item} />
+          </CardButton>
+        ))}
     </div>
   );
 }
