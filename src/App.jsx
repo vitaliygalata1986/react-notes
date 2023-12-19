@@ -5,9 +5,10 @@ import JournalList from './components/JournalList/JournalList';
 import JournalForm from './components/JournalForm/JournalFormUseReducer';
 import LeftPanel from './layouts/LeftPanel/LeftPanel';
 import Body from './layouts/Body/Body';
-import { useState, useEffect } from 'react';
+//import { useState, useEffect } from 'react';
 import { useLocalStorage } from './hooks/use-localstorage.hooks';
-import { UserContext } from './context/user.context';
+//import { UserContext } from './context/user.context';
+import { UserContextProvider } from './context/user.context';
 
 function mapItems(items) {
   if (!items) {
@@ -22,7 +23,7 @@ function mapItems(items) {
 function App() {
   // const [items, setItems] = useState([]);
   const [items, setItems] = useLocalStorage('data');
-  const [userId, setUserId] = useState(1);
+  // const [userId, setUserId] = useState(1);
   /*
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('data'));
@@ -76,7 +77,8 @@ function App() {
 
   return (
     <>
-      <UserContext.Provider value={{ userId, setUserId }}>
+      {/* <UserContext.Provider value={{ userId, setUserId }}> */}
+      <UserContextProvider>
         <div className="app">
           <LeftPanel>
             <Header />
@@ -88,7 +90,7 @@ function App() {
             <JournalForm onSubmit={addItem} />
           </Body>
         </div>
-      </UserContext.Provider>
+      </UserContextProvider>
     </>
   );
 }

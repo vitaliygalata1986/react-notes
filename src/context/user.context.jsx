@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
 export const UserContext = createContext({
   userId: 10,
@@ -9,3 +9,12 @@ export const UserContext = createContext({
 // в определенный уровень нашего компонента
 // Consumer - здесь мы можем получить наш контекст
 // есть отдельный хук для получения контекста
+
+export const UserContextProvider = ({ children }) => {
+  const [userId, setUserId] = useState(1);
+  return (
+    <UserContext.Provider value={{ userId, setUserId }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
