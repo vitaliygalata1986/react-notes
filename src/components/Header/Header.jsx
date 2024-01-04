@@ -1,10 +1,20 @@
 import SelectUser from '../SelectUser/SelectUser';
-import styles from './Header.module.css';
+import Button from '../Button/Button';
+import Logo from '../Logo/Logo';
+// import styles from './Header.module.css';
+import { useState } from 'react';
+const logos = ['/logo.svg', '/vite.svg'];
 function Header() {
+  const [logoIndex, setLogoIndex] = useState(0);
+  console.log('Header');
+  const changeLogo = () => {
+    setLogoIndex((state) => Number(!state)); // state - предыдущее состояние
+  };
   return (
     <>
-      <img className={styles.logo} src="/logo.svg" alt="Logo" />
+      <Logo image={logos[0]} />
       <SelectUser />
+      <Button onClick={changeLogo}>Change Logo</Button>
     </>
   );
 }

@@ -1,7 +1,9 @@
+// import { memo } from 'react';
 import './Button.css';
-import { useState } from 'react';
+// import { useState } from 'react';
 
-function Button({ text, onClick }) {
+function Button({ children, onClick }) {
+  console.log('Button');
   /*
   const [text, setText] = useState('Сохранить'); // возвращает кортеж - массив, состоящий из двух элементов
   // console.log('Рендер');
@@ -17,7 +19,7 @@ function Button({ text, onClick }) {
 
   return (
     <button className="btn btn-blue" onClick={onClick}>
-      {text}
+      {children}
     </button>
   );
 }
