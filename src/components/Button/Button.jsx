@@ -1,4 +1,4 @@
-// import { memo } from 'react';
+import { memo } from 'react';
 import './Button.css';
 // import { useState } from 'react';
 
@@ -24,4 +24,4 @@ function Button({ children, onClick }) {
   );
 }
 
-export default Button;
+export default memo(Button);
