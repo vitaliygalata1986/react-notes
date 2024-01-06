@@ -24,7 +24,7 @@ function App() {
   // const [items, setItems] = useState([]);
   const [items, setItems] = useLocalStorage('data');
   // const [userId, setUserId] = useState(1);
-  console.log('App');
+  // console.log('App');
   /*
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('data'));

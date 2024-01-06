@@ -1,9 +1,8 @@
-import { memo } from 'react';
+//import { memo } from 'react';
 import './Button.css';
 // import { useState } from 'react';
 
 function Button({ children, onClick }) {
-  console.log('Button');
   /*
   const [text, setText] = useState('Сохранить'); // возвращает кортеж - массив, состоящий из двух элементов
   // console.log('Рендер');
@@ -24,4 +23,4 @@ function Button({ children, onClick }) {
   );
 }
 
-export default memo(Button);
+export default Button;
