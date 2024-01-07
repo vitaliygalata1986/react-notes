@@ -8,7 +8,7 @@ import { formReducer, INITIAL_STATE } from './JournalForm.state';
 import { UserContext } from '../../context/user.context';
 import { useContext } from 'react';
 
-function JournalForm({ onSubmit }) {
+function JournalForm({ onSubmit, data, onDelete }) {
   const { userId } = useContext(UserContext);
   // dispatchForm - функция, которая вызывает нашу функцию обработчик
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
@@ -45,8 +45,31 @@ function JournalForm({ onSubmit }) {
     if (isFormReadyToSubmit) {
       onSubmit(values); // values - это объект с данными, которые мы отправляем {title: 'ewfw', date: '2023-12-23', tag: 'wefw', text: 'wef'}
       dispatchForm({ type: 'CLEAR_FORM' });
+      dispatchForm({
+        type: 'SET_VALUE',
+        payload: { userId },
+      });
     }
-  }, [isFormReadyToSubmit, onSubmit, values]);
+  }, [isFormReadyToSubmit, onSubmit, values, userId]);
+
+  useEffect(() => {
+    // будет срабатывать, когда выберим item
+    if (!data) {
+      // изначально data - null
+      // !null - true
+      dispatchForm({ type: 'CLEAR_FORM' });
+      dispatchForm({
+        type: 'SET_VALUE',
+        payload: { userId },
+      });
+    }
+    dispatchForm({
+      type: 'SET_VALUE',
+      payload: {
+        ...data,
+      },
+    });
+  }, [data]);
 
   useEffect(() => {
     // при изменении userId мы дополним нашу форму
@@ -72,21 +95,43 @@ function JournalForm({ onSubmit }) {
     dispatchForm({ type: 'SUBMIT' });
   };
 
+  const deleteJournalItem = () => {
+    onDelete(data.id);
+    dispatchForm({ type: 'CLEAR_FORM' });
+    // после очистки формы мы должны сразу прочитать select
+    // выбранного пользователя
+    dispatchForm({
+      type: 'SET_VALUE',
+      payload: { userId },
+    });
+  };
+
   return (
     /*
       <UserContext.Consumer>
         {(context) => (
     */
     <form className={styles['journal-form']} onSubmit={addJournalItem}>
-      <Input
-        name="title"
-        type="text"
-        ref={titleRef}
-        value={values.title}
-        isValid={!isValid.title}
-        onChange={onChange}
-        appearence="title"
-      />
+      <div className={styles['form-row']}>
+        <Input
+          name="title"
+          type="text"
+          ref={titleRef}
+          value={values.title}
+          isValid={!isValid.title}
+          onChange={onChange}
+          appearence="title"
+        />
+        {data?.id && (
+          <button className={styles.delete} type="button">
+            <img
+              onClick={deleteJournalItem}
+              src="/delete.svg"
+              alt="Удалить запись"
+            />
+          </button>
+        )}
+      </div>
       <div className={styles['form-row']}>
         <label htmlFor="date" className={styles['form-lable']}>
           <img src="/calendar.svg" alt="Иконка календаря" />
@@ -96,7 +141,9 @@ function JournalForm({ onSubmit }) {
           type="date"
           name="date"
           ref={dateRef}
-          value={values.date}
+          value={
+            values.date ? new Date(values.date).toISOString().slice(0, 10) : ''
+          }
           isValid={!isValid.date}
           onChange={onChange}
           id="date"

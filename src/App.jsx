@@ -9,6 +9,7 @@ import Body from './layouts/Body/Body';
 import { useLocalStorage } from './hooks/use-localstorage.hooks';
 //import { UserContext } from './context/user.context';
 import { UserContextProvider } from './context/user.context';
+import { useState } from 'react';
 
 function mapItems(items) {
   if (!items) {
@@ -23,6 +24,7 @@ function mapItems(items) {
 function App() {
   // const [items, setItems] = useState([]);
   const [items, setItems] = useLocalStorage('data');
+  const [selectedItem, setSelectedItem] = useState(null); // выбранный item
   // const [userId, setUserId] = useState(1);
   // console.log('App');
   /*
@@ -65,18 +67,38 @@ function App() {
   */
 
   const addItem = (item) => {
-    // console.log(item); // {title: 'asxasxas', text: 'asxasxasx', date: '2023-12-21', userId: 1, tag: 'asx'}
-    setItems([
-      ...mapItems(items),
-      {
-        ...item,
-        // title: item.title,
-        // text: item.text,
-        // tag: item.tag,
-        date: new Date(item.date),
-        id: items.length > 0 ? Math.max(...items.map((i) => i.id)) + 1 : 1,
-      },
-    ]);
+    if (!item.id) {
+      // если item не сушествует
+      // console.log(item); // {title: 'asxasxas', text: 'asxasxasx', date: '2023-12-21', userId: 1, tag: 'asx'}
+      setItems([
+        ...mapItems(items),
+        {
+          ...item,
+          // title: item.title,
+          // text: item.text,
+          // tag: item.tag,
+          date: new Date(item.date),
+          id: items.length > 0 ? Math.max(...items.map((i) => i.id)) + 1 : 1,
+        },
+      ]);
+    } else {
+      // иначе обновим текущий item
+      setItems([
+        ...mapItems(items).map((i) => {
+          if (i.id === item.id) {
+            return {
+              ...item,
+            };
+          }
+          return i; // инача просто возвращаем i (другие item оставляем)
+        }),
+      ]);
+    }
+  };
+
+  const deleteItem = (id) => {
+    setItems([...items.filter((i) => i.id !== id)]);
+    setSelectedItem(null);
   };
 
   return (
@@ -86,12 +108,16 @@ function App() {
         <div className="app">
           <LeftPanel>
             <Header />
-            <JournalAddButton />
+            <JournalAddButton clearForm={() => setSelectedItem(null)} />
             {/* <JournalList items={items} /> */}
-            <JournalList items={mapItems(items)} />
+            <JournalList setItem={setSelectedItem} items={mapItems(items)} />
           </LeftPanel>
           <Body>
-            <JournalForm onSubmit={addItem} />
+            <JournalForm
+              data={selectedItem}
+              onDelete={deleteItem}
+              onSubmit={addItem}
+            />
           </Body>
         </div>
       </UserContextProvider>

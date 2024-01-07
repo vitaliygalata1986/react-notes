@@ -52,9 +52,14 @@ export function formReducer(state, action) {
       return {
         ...state,
         values: {
-          ...state.values, // мы ведь не можем все сразу инпуты обработать, поэтому возращаем предыдущий стейт
+          ...state.values, // мы ведь не можем все сразу инпуты обработать, поэтому возвращаем предыдущий стейт
           ...action.payload, // дополним одним инпутом, который нам пришел
         },
+      };
+    }
+    case 'SET_FORM': {
+      return {
+        ...state,
       };
     }
   }
