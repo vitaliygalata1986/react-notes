@@ -126,7 +126,7 @@ function JournalForm({ onSubmit, data, onDelete }) {
           <button className={styles.delete} type="button">
             <img
               onClick={deleteJournalItem}
-              src="/delete.svg"
+              src="/src/assets/delete.svg"
               alt="Удалить запись"
             />
           </button>
@@ -134,7 +134,7 @@ function JournalForm({ onSubmit, data, onDelete }) {
       </div>
       <div className={styles['form-row']}>
         <label htmlFor="date" className={styles['form-lable']}>
-          <img src="/calendar.svg" alt="Иконка календаря" />
+          <img src="/src/assets/calendar.svg" alt="Иконка календаря" />
           <span>Дата</span>
         </label>
         <Input
@@ -151,7 +151,7 @@ function JournalForm({ onSubmit, data, onDelete }) {
       </div>
       <div className={styles['form-row']}>
         <label htmlFor="tag" className={styles['form-lable']}>
-          <img src="/folder.svg" alt="Иконка метки" />
+          <img src="/src/assets/folder.svg" alt="Иконка метки" />
           <span>Метки</span>
         </label>
         <Input
