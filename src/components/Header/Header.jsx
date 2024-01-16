@@ -4,7 +4,7 @@ import Logo from '../Logo/Logo';
 // import styles from './Header.module.css';
 // import { useState, useCallback } from 'react';
 // import { useState } from 'react';
-const logos = ['/logo.svg', '/vite.svg'];
+const logos = ['/src/assets/logo.svg', '/vite.svg'];
 function Header() {
   // const [logoIndex, setLogoIndex] = useState(0);
   //const [secondIndex, setSecondIndex] = useState(0);
