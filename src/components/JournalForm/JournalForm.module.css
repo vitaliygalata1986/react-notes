@@ -16,6 +16,10 @@
   width: 100%;
   font-size: 14px;
 }
+::placeholder {
+  opacity: 1;
+  color: #fff;
+}
 
 .form-lable {
   display: flex;

@@ -121,6 +121,8 @@ function JournalForm({ onSubmit, data, onDelete }) {
           isValid={!isValid.title}
           onChange={onChange}
           appearence="title"
+          className={styles['input']}
+          placeholder="Введите название заметки"
         />
         {data?.id && (
           <button className={styles.delete} type="button">
@@ -169,6 +171,7 @@ function JournalForm({ onSubmit, data, onDelete }) {
         cols="30"
         rows="10"
         ref={textRef}
+        placeholder="Введите текст заметки"
         className={cn(styles['input'], {
           [styles['invalid']]: !isValid.text,
         })}

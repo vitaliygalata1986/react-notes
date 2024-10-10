@@ -69,6 +69,7 @@ function JournalForm({ onSubmit }) {
         <input
           type="text"
           name="title"
+          placeholder="Введите название заметки"
           className={cn(styles['input-title'], {
             [styles['invalid']]: !formValidState.title,
           })}
