@@ -27,7 +27,7 @@ function Header() {
     <>
       {/* <Logo image={logos[logoIndex]} /> */}
       <Logo image={logos[0]} />
-      <SelectUser />
+      {/* <SelectUser /> */}
       {/* <Button onClick={changeLogo}>Change Logo</Button> */}
     </>
   );
