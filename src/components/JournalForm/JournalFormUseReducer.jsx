@@ -5,11 +5,8 @@ import styles from './JournalForm.module.css';
 import cn from 'classnames';
 import { useReducer, useRef } from 'react';
 import { formReducer, INITIAL_STATE } from './JournalForm.state';
-import { UserContext } from '../../context/user.context';
-import { useContext } from 'react';
 
 function JournalForm({ onSubmit, data, onDelete }) {
-  const { userId } = useContext(UserContext);
   // dispatchForm - функция, которая вызывает нашу функцию обработчик
   const [formState, dispatchForm] = useReducer(formReducer, INITIAL_STATE);
   // деструктурируем наш стейт на мелкие элементы
@@ -45,12 +42,8 @@ function JournalForm({ onSubmit, data, onDelete }) {
     if (isFormReadyToSubmit) {
       onSubmit(values); // values - это объект с данными, которые мы отправляем {title: 'ewfw', date: '2023-12-23', tag: 'wefw', text: 'wef'}
       dispatchForm({ type: 'CLEAR_FORM' });
-      dispatchForm({
-        type: 'SET_VALUE',
-        payload: { userId },
-      });
     }
-  }, [isFormReadyToSubmit, onSubmit, values, userId]);
+  }, [isFormReadyToSubmit, onSubmit, values]);
 
   useEffect(() => {
     // будет срабатывать, когда выберим item
@@ -58,10 +51,6 @@ function JournalForm({ onSubmit, data, onDelete }) {
       // изначально data - null
       // !null - true
       dispatchForm({ type: 'CLEAR_FORM' });
-      dispatchForm({
-        type: 'SET_VALUE',
-        //payload: { userId },
-      });
     }
     dispatchForm({
       type: 'SET_VALUE',
@@ -70,16 +59,6 @@ function JournalForm({ onSubmit, data, onDelete }) {
       },
     });
   }, [data]);
-
-  useEffect(() => {
-    // при изменении userId мы дополним нашу форму
-    dispatchForm({
-      type: 'SET_VALUE',
-      payload: {
-        userId,
-      },
-    });
-  }, [userId]);
 
   const onChange = (e) => {
     dispatchForm({
@@ -97,12 +76,6 @@ function JournalForm({ onSubmit, data, onDelete }) {
   const deleteJournalItem = () => {
     onDelete(data.id);
     dispatchForm({ type: 'CLEAR_FORM' });
-    // после очистки формы мы должны сразу прочитать select
-    // выбранного пользователя
-    dispatchForm({
-      type: 'SET_VALUE',
-      payload: { userId },
-    });
   };
 
   return (

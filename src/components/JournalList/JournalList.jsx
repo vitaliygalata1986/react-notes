@@ -21,17 +21,14 @@ function JournalList({ items, setItem }) {
   // если items либо userId остались тоже, то filterItems запомнили
   // это даст то преимущество, что если функция JournalList получит
   // другие пропсы, то фильтрация заново не будет отрабатывать
-  const filterItems = useMemo(
-    () => items.filter((item) => item.userId === userId).sort(sortItems),
-    [items, userId]
-  );
+  const filterItems = useMemo(() => items.sort(sortItems), [items]);
 
   if (items.length === 0) {
     return <p>Записей пока нет, добавьте первую</p>;
   }
 
   return (
-    <div className="journal-list">
+    <div className='journal-list'>
       {filterItems.map((item) => (
         <CardButton key={item.id} onClick={() => setItem(item)}>
           <JournalItem {...item} />
