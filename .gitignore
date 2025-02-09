@@ -26,3 +26,4 @@ dist-ssr
  JetBrainsMono-2.304
 *.docx
 .vite/
+.history/*
