@@ -23,8 +23,9 @@ function mapItems(items) {
 
 function App() {
   // const [items, setItems] = useState([]);
-  const [items, setItems] = useLocalStorage('data');
-  const [selectedItem, setSelectedItem] = useState(null); // выбранный item
+  // const [items, setItems] = useLocalStorage('data');
+  const [selectedItem, setSelectedItem] = useState({}); // выбранный item
+  console.log(selectedItem);
   // const [userId, setUserId] = useState(1);
   // console.log('App');
   /*
@@ -66,13 +67,28 @@ function App() {
   };
   */
 
+  /*
+  const items = [
+	  { id: 1, name: "Item 1" },
+	  { id: 3, name: "Item 2" },
+	  { id: 2, name: "Item 3" }
+	];
+
+	const ids = items.map((i) => i.id); // [1, 3, 2]
+	
+	// Math.max(...[1, 3, 2]) дает 3.
+	// 3 + 1 дает 4.
+  */
+
   const addItem = (item) => {
     if (!item.id) {
       // если item не сушествует
       // console.log(item); // {title: 'asxasxas', text: 'asxasxasx', date: '2023-12-21', userId: 1, tag: 'asx'}
       setItems([
-        ...mapItems(items),
+        //...mapItems(items), // получаем текущее состояние всех заметок
+        items,
         {
+          // добавляем новый item
           ...item,
           // title: item.title,
           // text: item.text,
@@ -98,7 +114,7 @@ function App() {
 
   const deleteItem = (id) => {
     setItems([...items.filter((i) => i.id !== id)]);
-    setSelectedItem(null);
+    setSelectedItem({});
   };
 
   return (

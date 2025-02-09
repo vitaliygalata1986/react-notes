@@ -60,7 +60,7 @@ function JournalForm({ onSubmit, data, onDelete }) {
       dispatchForm({ type: 'CLEAR_FORM' });
       dispatchForm({
         type: 'SET_VALUE',
-        //payload: { userId },
+        payload: { userId },
       });
     }
     dispatchForm({

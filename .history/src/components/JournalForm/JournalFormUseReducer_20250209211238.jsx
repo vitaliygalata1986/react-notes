@@ -60,7 +60,7 @@ function JournalForm({ onSubmit, data, onDelete }) {
       dispatchForm({ type: 'CLEAR_FORM' });
       dispatchForm({
         type: 'SET_VALUE',
-        //payload: { userId },
+        payload: { userId },
       });
     }
     dispatchForm({
@@ -91,6 +91,7 @@ function JournalForm({ onSubmit, data, onDelete }) {
   };
 
   const addJournalItem = (event) => {
+    event.preventDefault();
     dispatchForm({ type: 'SUBMIT' });
   };
 
@@ -110,67 +111,67 @@ function JournalForm({ onSubmit, data, onDelete }) {
       <UserContext.Consumer>
         {(context) => (
     */
-    <form className={styles['journal-form']} action={addJournalItem}>
+    <form className={styles['journal-form']} onSubmit={addJournalItem}>
       <div className={styles['form-row']}>
         <Input
-          name='title'
-          type='text'
+          name="title"
+          type="text"
           ref={titleRef}
           value={values.title}
           isValid={!isValid.title}
           onChange={onChange}
-          appearence='title'
+          appearence="title"
           className={styles['input']}
-          placeholder='Введите название заметки'
+          placeholder="Введите название заметки"
         />
         {data?.id && (
-          <button className={styles.delete} type='button'>
+          <button className={styles.delete} type="button">
             <img
               onClick={deleteJournalItem}
-              src='delete.svg'
-              alt='Удалить запись'
+              src="delete.svg"
+              alt="Удалить запись"
             />
           </button>
         )}
       </div>
       <div className={styles['form-row']}>
-        <label htmlFor='date' className={styles['form-lable']}>
-          <img src='calendar.svg' alt='Иконка календаря' />
+        <label htmlFor="date" className={styles['form-lable']}>
+          <img src="calendar.svg" alt="Иконка календаря" />
           <span>Дата</span>
         </label>
         <Input
-          type='date'
-          name='date'
+          type="date"
+          name="date"
           ref={dateRef}
           value={
             values.date ? new Date(values.date).toISOString().slice(0, 10) : ''
           }
           isValid={!isValid.date}
           onChange={onChange}
-          id='date'
+          id="date"
         />
       </div>
       <div className={styles['form-row']}>
-        <label htmlFor='tag' className={styles['form-lable']}>
-          <img src='folder.svg' alt='Иконка метки' />
+        <label htmlFor="tag" className={styles['form-lable']}>
+          <img src="folder.svg" alt="Иконка метки" />
           <span>Метки</span>
         </label>
         <Input
-          type='text'
+          type="text"
           onChange={onChange}
-          id='tag'
-          name='tag'
+          id="tag"
+          name="tag"
           value={values.tag}
         />
       </div>
       <textarea
-        name='text'
+        name="text"
         value={values.text}
         onChange={onChange}
-        cols='30'
-        rows='10'
+        cols="30"
+        rows="10"
         ref={textRef}
-        placeholder='Введите текст заметки'
+        placeholder="Введите текст заметки"
         className={cn(styles['input'], {
           [styles['invalid']]: !isValid.text,
         })}
@@ -186,3 +187,6 @@ function JournalForm({ onSubmit, data, onDelete }) {
 */
 
 export default JournalForm;
+
+
+

@@ -2,7 +2,7 @@
 import './Button.css';
 // import { useState } from 'react';
 
-function Button({ children, onClick }) {
+function Button({ children, onClick, ...props }) {
   /*
   const [text, setText] = useState('Сохранить'); // возвращает кортеж - массив, состоящий из двух элементов
   // console.log('Рендер');
@@ -17,7 +17,7 @@ function Button({ children, onClick }) {
    */
 
   return (
-    <button className="btn btn-blue" onClick={onClick}>
+    <button {...props} onClick={onClick} className="btn btn-blue">
       {children}
     </button>
   );
