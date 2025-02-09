@@ -18,6 +18,5 @@ This React Notes App is built using the following technology stack:
 ```bash
 npm run dev
 ```
-
 3. Live Demo:  
    <a target="_blank" href="https://vitaliygalata1986.github.io/react-notes/">Live Demo</a>
