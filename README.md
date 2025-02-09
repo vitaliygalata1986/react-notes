@@ -1,8 +1,23 @@
-# React + Vite
+# React Notes App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This React Notes App is built using the following technology stack:
 
-Currently, two official plugins are available:
+1. **React 19**
+2. **React Context**
+3. **Reusable components**
+4. **Saving and reading notes in Localstorage**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Installation and Setup
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the application:
+
+```bash
+npm run dev
+```
+
+3. Live Demo:  
+   <a target="_blank" href="https://vitaliygalata1986.github.io/react-notes/">Live Demo</a>
