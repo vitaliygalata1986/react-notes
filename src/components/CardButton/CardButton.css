@@ -26,3 +26,9 @@
   font-weight: 600;
   line-height: normal;
 }
+
+@media (max-width: 480px) {
+  .card-button {
+    padding: 15px;
+  }
+}

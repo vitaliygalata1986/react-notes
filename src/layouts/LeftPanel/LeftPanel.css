@@ -5,3 +5,14 @@
   flex-direction: column;
   row-gap: 30px;
 }
+@media (max-width: 991px) {
+  .left-panel {
+    flex-basis: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .left-panel img {
+    display: block;
+    margin: 0 auto;
+  }
+}
